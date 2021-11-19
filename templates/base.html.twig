@@ -28,7 +28,6 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                       {% if app.user %}<li>Logged in as:<h4> {{ app.user.username }}</h4></li>  {% endif %}
                      
                         <li><a href="{{ path('app_logout') }}">Logout</a></li>
                     </ul>
@@ -46,7 +45,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{ app.user.username }}
+                        user
                     </div>
                 </nav>
             </div>

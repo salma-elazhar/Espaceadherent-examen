@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 /**
- * @Route("/ticket")
+ * @Route("/")
  */
 class TicketController extends AbstractController
 {
