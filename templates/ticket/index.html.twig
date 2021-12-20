@@ -3,61 +3,119 @@
 
 
 {% block body %}
-    <h1>liste de demandes</h1>
-   <div >
-    <form action="{{path('filterbyid')}}" method="post">
-      {{ form_widget(form) }} 
-     </form>
-   </div> 
- <br>
-    <div >
-    <form action="{{path('filterbystatut')}}" method="post">
-      {{ form_widget(form2) }} 
-     </form>
-   </div> 
-   <br>
-    <div >
-    <form action="{{path('filterbydate')}}" method="post">
-      {{ form_widget(form3) }} 
-     </form>
-   </div> 
-    <table class="table" id="datatablesSimple">
+<div class="row">
+ <div class="card col-md-4" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.maaf.fr/fr/files/live/sites/maaf/files/Famille/Visuels_entete_940x280/assur-perte-revenusPRI-940x280.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Contrat Prévoyance</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<div class="card col-md-4" style="width: 18rem;">
+  <img class="card-img-top" src="https://th.bing.com/th/id/OIP.KXYM5Fjbt5VY_F6c8VapEgAAAA?w=267&h=144&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Contrat Santé</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<div class="card col-md-4" style="width: 18rem;">
+  <img class="card-img-top" src="https://th.bing.com/th/id/OIP.Gb9UH-mcQ5jAJ9ZfKohwSgHaDt?w=312&h=174&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Contrat AUTO</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+</div>
+<div class="row">
+ticket
+<div class="col-md-6"><table class="table">
         <thead>
             <tr>
-                
-                <th>Titre</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Statut</th>
-                <th>Date</th>
-                <th></th>
+                <th>Id</th>              
+                <th>titre</th>
+                <th>statut</th>
+                <th>date</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for ticket in tickets %}
             <tr>
-                
+                <td>{{ ticket.id }}</td>
                 <td>{{ ticket.titre }}</td>
-                <td>{{ ticket.nom }}</td>
-                <td>{{ ticket.description }}</td>
                 <td>{{ ticket.statut }}</td>
-                <td>{{ ticket.date ? ticket.date|date('Y-m-d') : '' }}</td>
+                <td>{{ ticket.date }}</td>
+                
                 <td>
-                    <a href="{{ path('ticket_show', {'id': ticket.id}) }}"><button>show</button></a>
-                    <a href="{{ path('ticket_edit', {'id': ticket.id}) }}"><button>edit</button></a>
-                    <a href="{{ path('ticket_delete', {'id': ticket.id}) }}"><button>delete</button></a>
+                    <a href="{{ path('offre_show', {'id': ticket.id}) }}">show</a>
+                    <a href="{{ path('offre_edit', {'id': ticket.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">Il n y a pas des demandes a afficher</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table></div>
+<div class="col-md-6">
+facture
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Paiement</th>
+                <th>Montanttotale</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td>{{ facture.id }}</td>
+                <td>{{ facture.paiement }}</td>
+                <td>{{ facture.montanttotale }}</td>
+                <td>{{ facture.date ? facture.date|date('Y-m-d') : '' }}</td>
+                <td>{{ facture.statut }}</td>
+                <td>
+                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
+                    <a onclick="StartCheckout()">payer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table></div>
+</div>
+<script>
+function StartCheckout(){
+       console.log('payer')
+    var stripe = Stripe('pk_test_51IGX4bLt3m1kL9opuWn2rZRbnVdWybDd7mWhL3BUsmm56l6xNnX9YO3ywOHNBuP6CbMPTgyp7x8E5TIhcCo43qfS00rY9yhDMH');
 
-    <a href="{{ path('ticket_new') }}"> <button class="btn btn-primary">Creér une nouvelle demande</button></a>
+            stripe.redirectToCheckout({
+                    lineItems: [{
+                        price: 'price_1IGXeSLt3m1kL9opeIS0ebPS', // Replace with the ID of your price
+                        quantity: 1,
+                    }],
+                    mode: 'payment',
+                    customerEmail:"salmalazhar221@gmail.com",
+                   successUrl:"https://edfraccordement.powerappsportals.com/",
+                   cancelUrl:"https://edfraccordement.powerappsportals.com/"
+            }); 
+  
+
+
+}
+</script>
 {% endblock %}
-{% block title%} Liste de demandes {% endblock %}
-{% block title1%} Liste de demandes {% endblock %}
-{% block title2%} Liste de demandes {% endblock %}
+{% block title%} HI salma elazhar! {% endblock %}
+{% block title1%}  {% endblock %}
+{% block title2%} {% endblock %}

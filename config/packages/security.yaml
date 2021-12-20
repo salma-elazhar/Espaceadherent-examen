@@ -37,4 +37,5 @@ security:
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS  }
         - { path: ^/ticket, roles: ROLE_USER }
+        - { path: ^/offre, roles: ROLE_ADMIN }
         

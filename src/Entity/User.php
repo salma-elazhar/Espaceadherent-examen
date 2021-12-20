@@ -27,7 +27,10 @@ class User implements UserInterface, \serializable
      * @ORM\Column(type="string", length=255)
      */
     private $password;
-
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
     public function getId(): ?int
     {
         return $this->id;
@@ -56,9 +59,15 @@ class User implements UserInterface, \serializable
 
         return $this;
     }
-    public function getRoles(){
+    public function getRoles() {
+        if (empty($this->roles)) {
+            return ['ROLE_USER'];
+        }
+        return $this->roles;
+    }
 
-        return ['ROLE_USER'];
+    function addRole($role) {
+        $this->roles[] = $role;
     }
     public function serialize() {
         return serialize([

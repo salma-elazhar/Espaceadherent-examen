@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 
 use App\Entity\Ticket;
 use App\Form\Ticket1Type;
+use App\Repository\FactureRepository;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 /**
- * @Route("/")
+ * @Route("/ticket")
  */
 class TicketController extends AbstractController
 {
@@ -33,7 +34,7 @@ class TicketController extends AbstractController
     /**
      * @Route("/", name="ticket_index", methods={"GET", "POST"})
      */
-    public function index(TicketRepository $ticketRepository): Response
+    public function index(TicketRepository $ticketRepository,FactureRepository $factureRepository): Response
     {
         
                      
@@ -59,6 +60,7 @@ class TicketController extends AbstractController
             ->getForm();
             return $this->render('ticket/index.html.twig', [
                 'tickets' => $ticketRepository->findAll(),
+                'factures' => $factureRepository->findAll(),              
                 'form' => $form->createView(),
                 'form2' => $form2->createView(),
                 'form3' => $form3->createView()
