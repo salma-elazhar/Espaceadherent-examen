@@ -36,6 +36,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS  }
-        - { path: ^/ticket, roles: ROLE_USER }
+        - { path: ^/ticket, roles: [ROLE_USER ,ROLE_ADMIN]}
+        - { path: ^/contrat, roles: [ROLE_USER ,ROLE_ADMIN]}
+        - { path: ^/facture, roles: [ROLE_USER ,ROLE_ADMIN]}
         - { path: ^/offre, roles: ROLE_ADMIN }
         

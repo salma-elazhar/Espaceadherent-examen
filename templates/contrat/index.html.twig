@@ -3,7 +3,7 @@
 {% block title %}Contrat index{% endblock %}
 
 {% block body %}
-    <h1>Contrat index</h1>
+    <h1>Liste des contrats</h1>
 
     <table class="table">
         <thead>
@@ -28,7 +28,10 @@
                 <td>{{ contrat.montanttotale }}</td>
                 <td>
                     <a href="{{ path('contrat_show', {'id': contrat.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">edit</a>
+                    <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">generer facture</a>
+                    {%endif%}
                 </td>
             </tr>
         {% else %}

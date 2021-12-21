@@ -71,7 +71,26 @@ class TicketController extends AbstractController
 
         
     }
- /**
+    /**
+     * @Route("/list", name="ticket_list", methods={"GET", "POST"})
+     */
+    public function list(TicketRepository $ticketRepository,FactureRepository $factureRepository): Response
+    {
+        
+                     
+          
+            return $this->render('ticket/list.html.twig', [
+                'tickets' => $ticketRepository->findAll(),
+                         
+                
+
+            ]);
+        
+        
+
+        
+    }
+    /**
      * @Route("/filterbydate", name="filterbydate", methods={"GET", "POST"})
      */
     public function filterbydate(TicketRepository $ticketRepository, Request $request): Response

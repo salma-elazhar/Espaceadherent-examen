@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="row">
- <div class="card col-md-4" style="width: 18rem;">
+ <div class="card col-md-4" >
   <img class="card-img-top" src="https://www.maaf.fr/fr/files/live/sites/maaf/files/Famille/Visuels_entete_940x280/assur-perte-revenusPRI-940x280.png" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Contrat Prévoyance</h5>
@@ -12,7 +12,7 @@
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
-<div class="card col-md-4" style="width: 18rem;">
+<div class="card col-md-4" >
   <img class="card-img-top" src="https://th.bing.com/th/id/OIP.KXYM5Fjbt5VY_F6c8VapEgAAAA?w=267&h=144&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Contrat Santé</h5>
@@ -20,7 +20,7 @@
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
-<div class="card col-md-4" style="width: 18rem;">
+<div class="card col-md-4" >
   <img class="card-img-top" src="https://th.bing.com/th/id/OIP.Gb9UH-mcQ5jAJ9ZfKohwSgHaDt?w=312&h=174&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Contrat AUTO</h5>
@@ -29,9 +29,10 @@
   </div>
 </div>
 </div>
+<br>
 <div class="row">
-ticket
-<div class="col-md-6"><table class="table">
+
+<div class="col-md-6">ticket<table class="table">
         <thead>
             <tr>
                 <th>Id</th>              
@@ -47,11 +48,11 @@ ticket
                 <td>{{ ticket.id }}</td>
                 <td>{{ ticket.titre }}</td>
                 <td>{{ ticket.statut }}</td>
-                <td>{{ ticket.date }}</td>
+                <td>{{ ticket.getDate() ? ticket.date|date('Y-m-d') : '' }}</td>
                 
                 <td>
-                    <a href="{{ path('offre_show', {'id': ticket.id}) }}">show</a>
-                    <a href="{{ path('offre_edit', {'id': ticket.id}) }}">edit</a>
+                    <button href="{{ path('offre_show', {'id': ticket.id}) }}">show</button>
+                    <button href="{{ path('offre_edit', {'id': ticket.id}) }}">edit</button>
                 </td>
             </tr>
         {% else %}
@@ -83,8 +84,8 @@ facture
                 <td>{{ facture.date ? facture.date|date('Y-m-d') : '' }}</td>
                 <td>{{ facture.statut }}</td>
                 <td>
-                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
-                    <a onclick="StartCheckout()">payer</a>
+                    <button href="{{ path('facture_show', {'id': facture.id}) }}">show</button>
+                    <button onclick="StartCheckout()">payer</button>
                 </td>
             </tr>
         {% else %}
@@ -95,6 +96,7 @@ facture
         </tbody>
     </table></div>
 </div>
+<script src="https://js.stripe.com/v3/"></script>
 <script>
 function StartCheckout(){
        console.log('payer')
@@ -116,6 +118,6 @@ function StartCheckout(){
 }
 </script>
 {% endblock %}
-{% block title%} HI salma elazhar! {% endblock %}
-{% block title1%}  {% endblock %}
+{% block title%} {% endblock %}
+{% block title1%} {% endblock %}
 {% block title2%} {% endblock %}
