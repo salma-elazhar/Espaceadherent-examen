@@ -48,8 +48,8 @@
                 <td>{{ facture.statut }}</td>
                 <td>
                   {% if is_granted('ROLE_ADMIN') %}
-                    <button href="{{ path('facture_show', {'id': facture.id}) }}">show</button>
-                    <button href="{{ path('facture_edit', {'id': facture.id}) }}">edit</button>
+                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
+                    <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
                       {% else %}
                        <button href="{{ path('facture_show', {'id': facture.id}) }}">show</button>
                        <button onclick="StartCheckout()">payer</button>

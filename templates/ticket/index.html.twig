@@ -2,37 +2,83 @@
 
 
 
+
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+    <h1>liste de demandes</h1>
+  
+    <table class="table" id="datatablesSimple">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>              
+                <th>Description</th>
+                <th>Statut</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.getId() }}</td>
+                <td>{{ ticket.getTitre() }}</td>            
+                <td>{{ ticket.getDescription() }}</td>
+                <td>{{ ticket.getStatut() }}</td>
+                <td>{{ ticket.getDate() ? ticket.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('ticket_show', {'id': ticket.getId()}) }}"><button>show</button></a>
+                    <a href="{{ path('ticket_edit', {'id': ticket.getId()}) }}"><button>edit</button></a>
+                    <a href="{{ path('ticket_delete', {'id': ticket.getId()}) }}"><button>delete</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Il n y a pas des demandes a afficher</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ticket_new') }}"> <button class="btn btn-primary">Creér une nouvelle demande</button></a>
+
+
+{% else  %}
+
+
+
 <div class="row">
  <div class="card col-md-4" >
-  <img class="card-img-top" src="https://www.maaf.fr/fr/files/live/sites/maaf/files/Famille/Visuels_entete_940x280/assur-perte-revenusPRI-940x280.png" alt="Card image cap">
+  <img class="card-img-top" src="https://www.meilleurtaux.com/images/ade/guide-assurance-emprunteur/garantie-prevoyance.jpg">
   <div class="card-body">
     <h5 class="card-title">Contrat Prévoyance</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <p class="card-text">Un contrat de prévoyance permet de vous couvrir contre les aléas de la vie liés à la personne. Cette assurance vous aide donc à faire face à d'éventuelles difficultés liées à une hospitalisation, un accident, un décès ou encore une perte de revenus</p>
+    <a href="#" class="btn btn-primary">Suite</a>
   </div>
 </div>
 <div class="card col-md-4" >
   <img class="card-img-top" src="https://th.bing.com/th/id/OIP.KXYM5Fjbt5VY_F6c8VapEgAAAA?w=267&h=144&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Contrat Santé</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <p class="card-text">Un contrat santé responsable respecte un cahier des charges fixé par la réglementation et concernant notamment des niveaux de prise en charge, plafonds et planchers, de certains frais médicaux, par exemple en optique.</p>
+    <a href="#" class="btn btn-primary">Suite</a>
   </div>
 </div>
 <div class="card col-md-4" >
   <img class="card-img-top" src="https://th.bing.com/th/id/OIP.Gb9UH-mcQ5jAJ9ZfKohwSgHaDt?w=312&h=174&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">Contrat AUTO</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <p class="card-text">Un contrat d’assurance auto (également appelé « police d’assurance ») est le document officiel qui matérialise l’accord passé entre le souscripteur et la compagnie d’assurance. </p>
+    <a href="#" class="btn btn-primary">Suite</a>
   </div>
 </div>
 </div>
 <br>
 <div class="row">
+<div class="col-md-6">
+<h3>Tickets</h3>
 
-<div class="col-md-6">ticket<table class="table">
+<table class="table">
         <thead>
             <tr>
                 <th>Id</th>              
@@ -63,7 +109,7 @@
         </tbody>
     </table></div>
 <div class="col-md-6">
-facture
+<h3>Factures</h3>
     <table class="table">
         <thead>
             <tr>
@@ -117,7 +163,9 @@ function StartCheckout(){
 
 }
 </script>
-{% endblock %}
+
 {% block title%} {% endblock %}
 {% block title1%} {% endblock %}
 {% block title2%} {% endblock %}
+{% endif %}
+{% endblock %}
