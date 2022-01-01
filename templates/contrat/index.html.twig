@@ -27,10 +27,9 @@
                 <td>{{ contrat.besoin }}</td>
                 <td>{{ contrat.montanttotale }}</td>
                 <td>
-                    <a href="{{ path('contrat_show', {'id': contrat.id}) }}">show</a>
+                    <a href="{{ path('contrat_show', {'id': contrat.id}) }}"><button>show</button></a>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">edit</a>
-                    <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">generer facture</a>
+                    <a href="{{ path('contrat_edit', {'id': contrat.id}) }}"><button>edit</button></a>
                     {%endif%}
                 </td>
             </tr>
@@ -42,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('contrat_new') }}">Create new</a>
+    <a href="{{ path('contrat_new') }}"><button class="btn btn-primary">Ajouter</button></a>
 {% endblock %}
